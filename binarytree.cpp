@@ -149,6 +149,31 @@ public:
             cout << "Tree is Empty" << endl;
         }
     }
+
+    void preorder_traversal()
+    {
+        stack<Node *> st;
+        if (root != NULL)
+        {
+            Node *temp = root;
+            do
+            {
+                while (temp != NULL)
+                {
+                    cout << temp->data << " ";
+                    st.push(temp);
+                    temp = temp->left;
+                }
+                temp = st.top();
+                st.pop();
+                temp = temp->right;
+            } while (!st.empty() || temp != NULL);
+        }
+        else
+        {
+            cout << "Tree is Empty" << endl;
+        }
+    }
 };
 
 int main()
@@ -168,6 +193,6 @@ int main()
         bt.insert(val);
     }
     // bt.level_wise();
-    bt.inorder_traversal();
+    bt.preorder_traversal();
     return 0;
 }
