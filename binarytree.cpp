@@ -6,18 +6,18 @@ class Tree;
 
 class Node
 {
-    int data;
+    string data;
     Node *left;
     Node *right;
 
 public:
     Node()
     {
-        data = 0;
+        data =' ';
         left = NULL;
         right = NULL;
     }
-    Node(int value)
+    Node(string value)
     {
         data = value;
         left = NULL;
@@ -31,7 +31,7 @@ class Tree
 {
 private:
     char dir;
-    int val;
+    string val;
 
     Node *root;
 
@@ -45,7 +45,7 @@ public:
     {
         return root;
     }
-    void insert(int value)
+    void insert(string value)
     {
         Node *pNew = new Node(value);
         if (root == NULL)
@@ -58,14 +58,14 @@ public:
             Node *pTemp = root;
             do
             {
-                cout << "Enter the direction (Left -> L) (Right -> R)" << +pTemp->data << endl;
+                cout << "Enter the direction (Left -> L) (Right -> R) :" << pTemp->data << endl;
                 cin >> dir;
 
                 if (dir == 'L' || dir == 'l')
                 {
                     if (pTemp->left == NULL)
                     {
-                        cout << "Value added at left of " << +pTemp->data << endl;
+                        cout << "Value added at left of :" << pTemp->data << endl;
                         pTemp->left = pNew;
                         break;
                     }
@@ -79,7 +79,7 @@ public:
                 {
                     if (pTemp->right == NULL)
                     {
-                        cout << "Value added at right of " << +pTemp->data << endl;
+                        cout << "Value added at right of :" << pTemp->data << endl;
                         pTemp->right = pNew;
                         break;
                     }
@@ -179,7 +179,8 @@ public:
 int main()
 {
     Tree bt;
-    int n, val;
+    int n;
+    string val;
 
     cout << "Enter number of nodes :";
     cin >> n;
