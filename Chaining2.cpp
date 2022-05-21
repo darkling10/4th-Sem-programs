@@ -3,13 +3,14 @@
 using namespace std;
 
 class DictionaryADT;
+
 class DataField
 {
 private:
-    int key;
-    int value;
+    int key = -1;
+    int value = 0;
 
-    DataField *next;
+    DataField *next =NULL;
 
 public:
     DataField()
@@ -47,16 +48,26 @@ public:
 
 class DictionaryADT
 {
-    DataField c;
+    DataField *HT[10];
 
 private:
-    DataField HT[10];
+    
+
+    
     int index;
 
 public:
-    int HashFunctions(DataField c)
+
+    DictionaryADT(){
+        for (int i = 0; i <10; i++)
+        {
+            HT[i] = new DataField();
+        }
+        
+    }
+    int HashFunctions(DataField *c)
     {
-        int index = c.key % 10;
+        int index = c->key % 10;
         return index;
     }
 
@@ -65,30 +76,36 @@ public:
         int index = c % 10;
         return index;
     }
-
     void insert()
     {
+        DataField *newNode = new DataField();
+        newNode->getData();
         
-        c.getData();
-        index = HashFunctions(c);
-        DataField *temp = &(HT[index]);
-        if (HT[index].key == -1)
+        index = HashFunctions(newNode);
+        
+        
+        if (HT[index]->key == -1)
         {
-            HT[index] = c;
+            
+            HT[index] = newNode;
+            newNode->next = NULL;
         }
-        else
+        else 
         {
+            DataField *temp = new DataField();
+            temp=HT[index];
+            
             while (temp->next != NULL)
             {
                 temp = temp->next;
             }
-            temp->next = &c;
-            c.next =NULL;
+
+            temp->next = newNode;
+            newNode->next=NULL;
         }
     }
 
-    void show()
-    {
+    void show(){
         cout << "__________________________________________________________________________________" << endl;
         cout << "\nIndex\tkey\tvalue\n"
              << endl;
@@ -96,48 +113,15 @@ public:
 
         for (int i = 0; i < 10; i++)
         {
-            cout << i << "\t" << HT[i].key << "\t" << HT[i].value << "--> "<<endl;
-            DataField *temp = HT[i].next;
-            while (temp->next != NULL)
+            cout << i << "\t" << HT[i]->key << "\t" << HT[i]->value << "--> \t";
+            DataField *temp = HT[i]->next;
+            while (temp!= NULL)
             {
-                cout << temp->key << "\t" << temp->value << endl;
+                cout << temp->key << "\t" << temp->value << "-->\t ";
                 temp = temp->next;
             }
             cout << endl;
         }
-    }
-
-    void search()
-    {
-        int key;
-        cout << "Enter the key you want to search : " << endl;
-        cin >> key;
-
-        int i;
-        i = HashFunctions(key);
-
-        if (HT[i].key == key)
-        {
-            cout << "Key Found" << endl;
-            cout << "The value associated with the key is :" << HT[i].value << endl;
-            return;
-        }
-        else
-        {
-            DataField *temp = HT[i].next;
-
-            while (temp->key != key)
-            {
-                temp = temp->next;
-            }
-            if (temp->key == key)
-            {
-                cout << "Key Found" << endl;
-                cout << "The value associated with the key is :" << temp->value << endl;
-                return;
-            }
-        }
-        cout << "Not found";
     }
 };
 
@@ -145,7 +129,7 @@ int main()
 {
     int choice;
     bool flag = true;
-    DictionaryADT cd;
+    DictionaryADT* cd = new DictionaryADT();
     while (flag)
     {
         cout << "\n________________________LIST________________________" << endl;
@@ -156,11 +140,11 @@ int main()
         switch (choice)
         {
         case 1:
-            cd.insert();
+            cd->insert();
             break;
 
         case 2:
-            cd.search();
+            // cd.search();
             break;
 
             // case 3:
@@ -168,10 +152,11 @@ int main()
             //     break;
 
         case 4:
-            cd.show();
+            cd->show();
             break;
 
         case 5:
+            flag=false;
             break;
 
         default:
