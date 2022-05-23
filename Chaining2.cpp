@@ -9,15 +9,13 @@ class DataField
 private:
     int key = -1;
     int value = 0;
-
-    DataField *next =NULL;
+    DataField *next = NULL;
 
 public:
     DataField()
     {
         key = -1;
         value = 0;
-
         next = NULL;
     }
 
@@ -45,25 +43,23 @@ public:
 
     friend class DictionaryADT;
 };
+//key - value
+// 1 -   20 --------> 11 - 20
 
 class DictionaryADT
 {
     DataField *HT[10];
 
 private:
-    
-
-    
     int index;
 
 public:
-
-    DictionaryADT(){
-        for (int i = 0; i <10; i++)
+    DictionaryADT()
+    {
+        for (int i = 0; i < 10; i++)
         {
             HT[i] = new DataField();
         }
-        
     }
     int HashFunctions(DataField *c)
     {
@@ -80,32 +76,32 @@ public:
     {
         DataField *newNode = new DataField();
         newNode->getData();
-        
+
         index = HashFunctions(newNode);
-        
-        
+
         if (HT[index]->key == -1)
         {
-            
+
             HT[index] = newNode;
             newNode->next = NULL;
         }
-        else 
+        else
         {
             DataField *temp = new DataField();
-            temp=HT[index];
-            
+            temp = HT[index];
+
             while (temp->next != NULL)
             {
                 temp = temp->next;
             }
 
             temp->next = newNode;
-            newNode->next=NULL;
+            newNode->next = NULL;
         }
     }
 
-    void show(){
+    void show()
+    {
         cout << "__________________________________________________________________________________" << endl;
         cout << "\nIndex\tkey\tvalue\n"
              << endl;
@@ -115,7 +111,8 @@ public:
         {
             cout << i << "\t" << HT[i]->key << "\t" << HT[i]->value << "--> \t";
             DataField *temp = HT[i]->next;
-            while (temp!= NULL)
+            
+            while (temp != NULL)
             {
                 cout << temp->key << "\t" << temp->value << "-->\t ";
                 temp = temp->next;
@@ -129,7 +126,7 @@ int main()
 {
     int choice;
     bool flag = true;
-    DictionaryADT* cd = new DictionaryADT();
+    DictionaryADT *cd = new DictionaryADT();
     while (flag)
     {
         cout << "\n________________________LIST________________________" << endl;
@@ -156,7 +153,7 @@ int main()
             break;
 
         case 5:
-            flag=false;
+            flag = false;
             break;
 
         default:

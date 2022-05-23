@@ -106,7 +106,7 @@ public:
             cout << endl;
         }
     }
-
+ 
     void search()
     {
         int key;
